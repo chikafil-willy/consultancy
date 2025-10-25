@@ -1,0 +1,330 @@
+/* ---------- Base Styling ---------- */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #fafafa;
+}
+
+/* ---------- Header ---------- */
+.header {
+  background: rgb(46, 141, 153);
+  color: #e0ffe0;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  animation: slideInDown 0.6s ease-out forwards;
+  position: relative; /* Important for layering */
+  z-index: 10;         /* Makes sure it's above background */
+}
+
+/* Logo and nav container */
+.header nav a {
+  color: rgb(243, 241, 238);
+  margin-left: 1rem;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.header nav a:hover {
+  color: #00bfff;
+}
+
+/* ---------- Hamburger Button ---------- */
+.menu-toggle {
+  display: none;
+  font-size: 1.8rem;
+  background: rgb(155, 66, 66);
+  border: none;
+  color: rgb(236, 11, 11);
+  cursor: pointer;
+  z-index: 11; /* Above everything else */
+}
+
+/* ---------- Nav Links ---------- */
+.nav-links {
+  display: flex;
+  gap: 1rem;
+  z-index: 11;
+  color: #f8fbfd;
+}
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    right: 1rem;
+    background: #84d109;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(185, 163, 163, 0.3);
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+}
+
+
+/* ---------- Logo Section ---------- */
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  height: 40px;
+  width: 40px;
+  object-fit: contain;
+  animation: popIn 0.6s ease-out;
+  border-radius: 9px;
+}
+
+/* ---------- Section ---------- */
+.section {
+  padding: 2rem;
+  margin: 1rem 0;
+  color: rgb(220, 236, 250);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+
+  /* ✨ Animate between background images */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  animation: fadeIn 1s ease, bgSwitch 10s infinite alternate ease-in-out;
+}
+
+/* 🔄 Alternate background images */
+@keyframes bgSwitch {
+  0% {
+    background-image: url("/home.jpg");
+  }
+  50% {
+    background-image: url("/home2.jpg");
+  }
+  100% {
+    background-image: url("/home.jpg");
+  }
+}
+
+/* 🌓 Optional overlay for readability */
+.section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 0;
+}
+
+/* Ensure text sits above overlay */
+.section > * {
+  z-index: 1;
+}
+
+
+
+/* ---------- Form ---------- */
+.form {
+  padding: 2rem;
+  background: #1d1c1c;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: fadeInUp 0.8s ease;
+}
+
+input, textarea {
+  padding: 0.5rem;
+  font-size: 1rem;
+  transition: box-shadow 0.3s ease;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  box-shadow: 0 0 5px #be6702;
+}
+
+button {
+  background: #0a2540;
+  color: white;
+  padding: 0.75rem;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background: #1a3d6d;
+  transform: scale(1.02);
+}
+
+/* ---------- Footer ---------- */
+.footer {
+  background: #0a2540;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  animation: fadeIn 1.2s ease;
+}
+
+/* ---------- About Section ---------- */
+.about-section {
+  padding: 40px;
+  max-width: 900px;
+  margin: auto;
+  line-height: 1.7;
+  animation: fadeInUp 1s ease;
+}
+
+.about-section h1,
+.about-section h2,
+.about-section h3 {
+  color: #333;
+  margin-top: 30px;
+  animation: bounceIn 0.6s ease;
+}
+
+.about-section ul {
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
+
+.about-section li {
+  margin-bottom: 10px;
+}
+
+
+
+.section-image {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.about-block {
+  margin-bottom: 3rem;
+}
+.section-break {
+  height: 120px; /* 👈 increase or decrease as needed */
+}
+.status-box {
+  background: #e0ffe0;
+  border: 1px solid #b2d8b2;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 5px;
+  font-weight: bold;
+  color: #0a2540;
+}
+
+
+/* ---------- Animations ---------- */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.7); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0.9); opacity: 0; }
+  60% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); }
+}
+select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+/* Hide toggle button on desktop */
+.menu-toggle {
+  display: none;
+  font-size: 1.5rem;
+  background: none;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+/* Navigation links for desktop */
+.nav-links {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background: #0a2540;
+    position: absolute;
+    top: 70px;
+    right: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    z-index: 99;
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+}
+.news-card {
+  background: white;
+  color: #333;
+  margin: 1rem 0;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+
+.news-img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+}
+.news-date {
+  font-size: 0.9rem;
+  color: #ccc;
+  margin-bottom: 0.5rem;
+}
