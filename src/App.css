@@ -328,3 +328,133 @@ select {
   color: #ccc;
   margin-bottom: 0.5rem;
 }
+.home {
+  font-family: "Poppins", sans-serif;
+  color: #333;
+}
+
+/* HERO SLIDER */
+.hero-slider {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  overflow: hidden;
+}
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 1.5s ease-in-out; /* smooth fading */
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.hero-image.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+
+@keyframes fadeEffect {
+  from { opacity: 0.4; }
+  to { opacity: 1; }
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  height: 100%;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-overlay h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.hero-overlay p {
+  max-width: 600px;
+  font-size: 1.1rem;
+}
+
+/* ABOUT SECTION */
+.about {
+  max-width: 900px;
+  margin: 4rem auto;
+  text-align: center;
+  padding: 0 1rem;
+}
+
+.about h2 {
+  color: #0a3d62;
+  margin-bottom: 1rem;
+}
+
+/* HERO FLEX SECTIONS */
+.hero-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.hero-flex.reverse {
+  flex-direction: row-reverse;
+}
+
+.hero-side-img {
+  width: 400px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.hero-text {
+  max-width: 500px;
+}
+
+.btn {
+  display: inline-block;
+  background: #0a3d62;
+  color: white;
+  text-decoration: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 6px;
+  margin-top: 1rem;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background: #145a8d;
+}
+/* === RESPONSIVE HERO FIX === */
+@media (max-width: 768px) {
+  .hero-slider {
+    height: 55vh; /* reduce hero height on mobile */
+  }
+
+  .hero-image {
+    object-fit: contain; /* show full image */
+  }
+
+  .hero-overlay h1 {
+    font-size: 1.6rem;
+  }
+
+  .hero-overlay p {
+    font-size: 0.9rem;
+    padding: 0 1rem;
+  }
+}
