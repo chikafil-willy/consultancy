@@ -458,3 +458,13 @@ select {
     padding: 0 1rem;
   }
 }
+@media (min-width: 768px) {
+  .hero-slider {
+    background-position: top !important; /* Start from the very top */
+
+    /* OPTIONAL → Adjust downwards to your taste */
+    /* background-position: center top; */
+    /* background-position: 20% 0; */
+    /* background-position-y: 15%; */
+  }
+}
