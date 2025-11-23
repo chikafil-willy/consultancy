@@ -1,39 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { supabase } from "../supabaseClient";
 
-// ⭐ Import images normally (not require)
-import slider1 from "../assets/slider1.jpg";
-import slider2 from "../assets/slider2.jpg";
-import slider3 from "../assets/slider3.jpg";
-import slider4 from "../assets/slider4.jpg";
-
 export default function News() {
   const [news, setNews] = useState([]);
   const [expanded, setExpanded] = useState(null);
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  const sliderImages = [slider1, slider2, slider3, slider4];
 
   useEffect(() => {
-    // fetch news
     const fetchNews = async () => {
       const { data, error } = await supabase
         .from("news_posts")
         .select("*")
         .order("created_at", { ascending: false });
 
-      if (!error) setNews(data);
+      if (!error && data) setNews(data);
     };
 
     fetchNews();
-  }, []);
-
-  // Auto-slide effect
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % sliderImages.length);
-    }, 5000);
-    return () => clearInterval(interval);
   }, []);
 
   const formatDate = (timestamp) => {
@@ -45,118 +27,154 @@ export default function News() {
     });
   };
 
-  return (
-    <section style={{ padding: "20px" }}>
+  const latestNews = news.length > 0 ? news[0] : null;
+  const moreNews = news.slice(1);
 
-      {/* ⭐ Welcome Note */}
-      <h2 style={{ textAlign: "center", fontSize: "2rem", marginBottom: "10px" }}>
+  return (
+    <section style={{ padding: "20px", backgroundColor: "#202020ff" }}>
+
+      {/* Section Title */}
+      <h2 style={{ textAlign: "center", fontSize: "2rem", marginBottom: "10px", color: "#fff" }}>
         Welcome to Olea Fresh MamaCare News & Events
       </h2>
+
       <p style={{
         textAlign: "center",
         maxWidth: "600px",
         margin: "0 auto 30px auto",
-        lineHeight: 1.5
+        lineHeight: 1.5,
+        color: "#fff"
       }}>
         Stay informed with our latest updates, community activities, health programs,
         and all upcoming MamaCare events.
       </p>
 
-      {/* ⭐ HERO SLIDER */}
-      <div
-        style={{
-          width: "100%",
-           height: window.innerWidth > 768 ? "760px" : "260px", // ⭐ Larger on desktop
-          borderRadius: "12px",
-          overflow: "hidden",
-          position: "relative",
-          marginBottom: "40px",
-        }}
-      >
-        {sliderImages.map((img, index) => (
+      {/* LATEST NEWS */}
+      <h2 style={{ marginBottom: "10px", color: "#fff" }}>Latest News</h2>
+
+      {!latestNews ? (
+        <p style={{ color: "#fff" }}>No news available yet.</p>
+      ) : (
+        <div
+          style={{
+            width: window.innerWidth > 1024
+              ? "1580px"
+              : window.innerWidth > 768
+              ? "95%"
+              : "100%",
+            margin: "0 auto 30px auto",
+          }}
+        >
           <img
-            key={index}
-            src={img}
-            alt="Hero slide"
+            src={latestNews.image_url}
+            className="news-image"
             style={{
               width: "100%",
-              height: "100%",
+              height: window.innerWidth > 1024
+                ? "595px"
+                : window.innerWidth > 768
+                ? "280px"
+                : "250px",
               objectFit: "cover",
-              objectPosition: window.innerWidth > 768 ? "center 40%" : "center", // ⭐ Start from top on desktop
-              position: "absolute",
-              top: 0,
-              left: 0,
-              opacity: index === currentSlide ? 1 : 0,
-              transition: "opacity 1s ease-in-out",
-              transform: window.innerWidth > 768 ? "scale(1.1)" : "scale(1)", // ⭐ Zoom on desktop
+              marginBottom: "10px",
             }}
           />
-        ))}
-      </div>
 
-      {/* ⭐ NEWS LIST */}
-      <h2 style={{ marginBottom: "10px" }}>Latest News</h2>
+          <h3 style={{ color: "#fff", marginBottom: "5px" }}>{latestNews.subtitle}</h3>
+          <p style={{ color: "#fff", opacity: 0.7, marginBottom: "10px" }}>
+            <strong>Date:</strong> {formatDate(latestNews.created_at)}
+          </p>
 
-      {news.length === 0 ? (
-        <p>No news available yet.</p>
-      ) : (
-        news.map((item) => (
-          <div
-            key={item.id}
+          <p style={{ color: "#fff", lineHeight: 1.6 }}>
+            {expanded === latestNews.id
+              ? latestNews.content
+              : latestNews.content.slice(0, 140) + "..."}
+          </p>
+
+          <button
+            onClick={() =>
+              setExpanded(expanded === latestNews.id ? null : latestNews.id)
+            }
             style={{
-              background: "#fff",
-              boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-              padding: "20px",
-              borderRadius: "12px",
-              marginBottom: "25px",
+              background: "none",
+              border: "none",
+              color: "#007bff",
+              cursor: "pointer",
+              fontWeight: "bold",
+              marginTop: "10px",
             }}
           >
-            {/* News Image */}
-            <img
-              src={item.image_url}
-              alt={item.subtitle}
-              style={{
-                width: "100%",
-                height: window.innerWidth > 768 ? "740px" : "250px", // ⭐ Bigger on desktop
-                objectFit: "cover",
-                borderRadius: "10px",
-                marginBottom: "15px",
-              }}
-            />
+            {expanded === latestNews.id ? "Show Less ▲" : "Read More →"}
+          </button>
+        </div>
+      )}
 
-            <h3 style={{ marginBottom: "8px" }}>{item.subtitle}</h3>
+      {/* MORE NEWS */}
+      {moreNews.length > 0 && (
+        <>
+          <h2 style={{ marginBottom: "10px", color: "#fff" }}>More News</h2>
 
-            <p style={{ opacity: 0.7, marginBottom: "12px" }}>
-              <strong>Date:</strong> {formatDate(item.created_at)}
-            </p>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: window.innerWidth > 768 ? "1fr 1fr" : "1fr",
+              gap: "20px",
+              maxWidth: "1600px",
+              margin: "0 auto",
+            }}
+          >
+            {moreNews.map((item) => (
+              <div
+                key={item.id}
+                style={{
+                  width: "100%",
+                }}
+              >
+                <img
+                  src={item.image_url}
+                  className="news-image"
+                  style={{
+                    width: "100%",
+                    height: window.innerWidth > 1024
+                      ? "230px"
+                      : window.innerWidth > 768
+                      ? "300px"
+                      : "250px",
+                    objectFit: "cover",
+                    marginBottom: "10px",
+                  }}
+                />
 
-            {/* Preview or Full Text */}
-            {expanded === item.id ? (
-              <p style={{ lineHeight: 1.6 }}>{item.content}</p>
-            ) : (
-              <p style={{ lineHeight: 1.6 }}>
-                {item.content.slice(0, 140)}...
-              </p>
-            )}
+                <h3 style={{ color: "#fff", marginBottom: "5px" }}>{item.subtitle}</h3>
+                <p style={{ color: "#fff", opacity: 0.7, marginBottom: "10px" }}>
+                  <strong>Date:</strong> {formatDate(item.created_at)}
+                </p>
 
-            {/* Read More / Show Less */}
-            <button
-              onClick={() =>
-                setExpanded(expanded === item.id ? null : item.id)
-              }
-              style={{
-                background: "none",
-                border: "none",
-                color: "#007bff",
-                cursor: "pointer",
-                marginTop: "10px",
-                fontWeight: "bold",
-              }}
-            >
-              {expanded === item.id ? "Show Less ▲" : "Read More →"}
-            </button>
+                <p style={{ color: "#fff", lineHeight: 1.6 }}>
+                  {expanded === item.id
+                    ? item.content
+                    : item.content.slice(0, 120) + "..."}
+                </p>
+
+                <button
+                  onClick={() =>
+                    setExpanded(expanded === item.id ? null : item.id)
+                  }
+                  style={{
+                    background: "none",
+                    border: "none",
+                    color: "#007bff",
+                    cursor: "pointer",
+                    fontWeight: "bold",
+                    marginTop: "10px",
+                  }}
+                >
+                  {expanded === item.id ? "Show Less ▲" : "Read More →"}
+                </button>
+              </div>
+            ))}
           </div>
-        ))
+        </>
       )}
     </section>
   );

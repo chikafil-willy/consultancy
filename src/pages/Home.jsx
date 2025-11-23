@@ -6,20 +6,33 @@ import img3 from "../assets/mama3.jpg";
 import requestImg from "../assets/request.jpg";
 import newsImg from "../assets/news.jpg";
 import newsletterBg from "../assets/newsletter.jpg";
-import { supabase } from "../supabaseClient"; // <-- ADD THIS
+import { supabase } from "../supabaseClient";
 
 const Home = () => {
   const images = [img1, img2, img3];
+  const heroTexts = [
+    {
+      title: "Welcome to Olea Fresh MamaCare",
+      subtitle: "Supporting mothers and children with love and expertise."
+    },
+    {
+      title: "Empowering Mothers",
+      subtitle: "We provide guidance for a healthy pregnancy and early childhood care."
+    },
+    {
+      title: "Your Trusted Partner",
+      subtitle: "Building stronger families through education, wellness, and care."
+    }
+  ];
+
   const [current, setCurrent] = useState(0);
 
-  // ⭐ Newsletter States
+  // Newsletter States
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [message, setMessage] = useState("");
 
-  // ⭐ Handle Subscribe
   const handleSubscribe = async (e) => {
-    e.preventDefault(); // stop page refresh
-
+    e.preventDefault();
     const { error } = await supabase
       .from("newsletter_subscribers")
       .insert([{ email: newsletterEmail }]);
@@ -32,80 +45,149 @@ const Home = () => {
     }
   };
 
-  // Image slider effect
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % images.length);
     }, 6000);
     return () => clearInterval(interval);
-  }, [images.length]);
+  }, []);
 
   return (
     <main className="home">
 
       {/* HERO SLIDER SECTION */}
-      <section className="hero-slider">
+      <section className="hero-slider" style={{ position: "relative", overflow: "hidden" }}>
         {images.map((img, index) => (
-          <img
+          <div
             key={index}
-            src={img}
-            alt="Olea Fresh MamaCare"
-            className={`hero-image ${index === current ? "active" : ""}`}
-          />
+            className={`hero-slide ${index === current ? "active" : ""}`}
+            style={{
+              width: "100%",
+              height: "80vh",
+              minHeight: "450px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+
+              /* ⭐ FULL IMAGE (NO CROPPING) */
+              backgroundImage: `url(${img})`,
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "contain",   // FULL IMAGE
+              backgroundPosition: "center",
+              backgroundColor: "#000",     // Prevent white edges
+
+              position: index === current ? "relative" : "absolute",
+              top: 0,
+              left: 0,
+              opacity: index === current ? 1 : 0,
+              transition: "opacity 1s ease-in-out",
+            }}
+          >
+            {index === current && (
+              <div
+                className="hero-text"
+                style={{
+                  position: "absolute",
+                  bottom: "60%",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  textAlign: "center",
+                  padding: "0 1rem",
+                  color: "#fff",
+                  animation: "slideDown 1s ease forwards",
+                  width: "100%",
+                  maxWidth: "600px",
+                }}
+              >
+                <h1 style={{ fontSize: "2.2rem", marginBottom: "1rem" }}>
+                  {heroTexts[index].title}
+                </h1>
+                <p
+                  style={{
+                    background: "rgba(0,0,0,0.6)",
+                    padding: "0.6rem 1rem",
+                    borderRadius: "8px",
+                    fontSize: "1rem",
+                  }}
+                >
+                  {heroTexts[index].subtitle}
+                </p>
+              </div>
+            )}
+          </div>
         ))}
+
+        {/* KEYFRAMES + MOBILE RESPONSIVENESS */}
+        <style>
+          {`
+            @keyframes slideDown {
+              from { opacity: 0; transform: translate(-50%, 20px); }
+              to { opacity: 1; transform: translate(-50%, 0); }
+            }
+
+            @media (max-width: 768px) {
+              .hero-slider .hero-slide {
+                height: 70vh !important;
+                background-size: contain !important; /* STILL FULL IMAGE */
+                background-position: center !important;
+              }
+
+              .hero-text h1 {
+                font-size: 1.5rem !important;
+              }
+
+              .hero-text p {
+                font-size: 0.9rem !important;
+              }
+            }
+          `}
+        </style>
       </section>
 
       {/* ABOUT SECTION */}
       <section className="about">
         <h2>Why Olea Fresh MamaCare</h2>
         <p>
-          <strong>Olea Fresh MamaCare Ltd</strong> is a trusted mother and child care consultancy firm 
-          devoted to the physical, emotional, and educational well-being of mothers and their children. 
-          We offer expert guidance, compassionate care, and practical solutions to support women throughout 
-          pregnancy, childbirth, postpartum recovery, and early childhood development.
+          <strong>Olea Fresh MamaCare Ltd</strong> is a trusted mother and child care consultancy firm
+          dedicated to the physical, emotional, and educational well-being of mothers and children.
         </p>
         <p>
-          Our services include antenatal education, postpartum counseling, nutrition and breastfeeding guidance, 
-          early childhood immunization awareness, and maternal wellness programs. We believe every mother deserves 
-          a safe, informed, and empowering experience — and every child deserves a healthy start to life.
+          We support mothers through pregnancy, childbirth, postpartum recovery, and early childhood development.
         </p>
         <p>
-          Through innovative health education, one-on-one consultations, and community-based programs, 
-          Olea Fresh MamaCare stands as a reliable partner in building stronger, healthier families.
+          Our mission is to build healthier families through education and wellness programs.
         </p>
       </section>
 
-      {/* REQUEST HERO SECTION */}
+      {/* REQUEST SECTION */}
       <section className="request-section">
         <div className="hero-flex">
           <img src={requestImg} alt="Request Consultation" className="hero-side-img" />
           <div className="hero-text">
             <h2>Need Professional Mother & Child Care Support?</h2>
             <p>
-              Book a personalized consultation session today to receive professional guidance 
-              from our health experts. We’re here to help you every step of the way.
+              Book a personalized consultation session with our health experts.
             </p>
             <Link to="/request" className="btn">Request</Link>
           </div>
         </div>
       </section>
 
-      {/* NEWS & EVENTS HERO SECTION */}
+      {/* NEWS SECTION */}
       <section className="news-section">
         <div className="hero-flex reverse">
           <img src={newsImg} alt="News and Events" className="hero-side-img" />
           <div className="hero-text">
             <h2>Stay Updated with Our News & Events</h2>
             <p>
-              Explore our latest updates, workshops, health talks, and community programs 
-              designed to empower mothers and strengthen family wellness.
+              Explore workshops, health talks, and community programs.
             </p>
             <Link to="/news-event" className="btn">News & Events</Link>
           </div>
         </div>
       </section>
 
-      {/* ⭐ NEWSLETTER SECTION */}
+      {/* NEWSLETTER SECTION */}
       <section
         style={{
           backgroundImage: `url(${newsletterBg})`,
@@ -122,11 +204,10 @@ const Home = () => {
           Stay Updated With Our Newsletter
         </h2>
 
-        <p style={{ maxWidth: "500px", margin: "0 auto 1.5rem auto", fontSize: "1rem" }}>
-          Receive helpful mother & child care tips, updates, health guides, and upcoming events directly in your inbox.
+        <p style={{ maxWidth: "500px", margin: "0 auto 1.5rem auto" }}>
+          Get mother & child care updates, wellness guides, and event alerts.
         </p>
 
-        {/* FORM */}
         <form
           onSubmit={handleSubscribe}
           style={{
@@ -150,7 +231,6 @@ const Home = () => {
             }}
             required
           />
-
           <button
             style={{
               padding: "0.8rem 1.2rem",
@@ -166,7 +246,6 @@ const Home = () => {
           </button>
         </form>
 
-        {/* SUCCESS / ERROR MESSAGE */}
         {message && (
           <p style={{ marginTop: "1rem", color: "#fff", fontWeight: "bold" }}>
             {message}
