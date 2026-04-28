@@ -58,13 +58,20 @@ body {
   .nav-links {
     display: none;
     flex-direction: column;
+
     position: absolute;
-    top: 70px;
-    right: 1rem;
-    background: #84d109;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(185, 163, 163, 0.3);
+    top: 100%;   /* 👈 attaches directly under header */
+    left: 0;
+
+    width: 100vw;  /* 👈 forces exact viewport width */
+
+    background: #0a2540;
+    padding: 1rem 0;
+
+    box-sizing: border-box; /* 👈 prevents overflow */
+    overflow-x: hidden;
+
+    z-index: 99;
   }
 
   .nav-links.show {

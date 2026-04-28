@@ -1,89 +1,161 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
-export default function About() {
+const About = () => {
+  const sectionStyle = {
+    backgroundColor: "#fff",
+    padding: "20px",
+    borderRadius: "14px",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+    marginBottom: "20px",
+  };
+
+  const titleStyle = {
+    color: "#0a7cff",
+    marginBottom: "10px",
+    fontSize: "20px",
+  };
+
   return (
-    <section className="about-section">
-      <h1>Core Services</h1>
-      <p>
-        Our services are tailored to support women towards enjoying whole wellness of body and soul while navigating the hassles of parenting and motherhood.
-      </p>
+    <div
+      style={{
+        padding: "24px",
+        backgroundColor: "#f5f7fb",
+        minHeight: "100vh",
+        fontFamily: "Arial, sans-serif",
+      }}
+    >
+      <h1 style={{ textAlign: "center", marginBottom: "30px" }}>
+        About Safe Mum Initiative
+      </h1>
 
-      <div className="section-break"></div> {/* 🔥 This adds the space */}
+      {/* Executive Summary */}
+      <div style={sectionStyle}>
+        <h2 style={titleStyle}>Executive Summary</h2>
+        <p>
+          Safe Mum Initiative is a non-profit organization dedicated to improving
+          women’s health through maternal and newborn health outcomes, particularly
+          among underserved and vulnerable populations.
+        </p>
+        <p>
+          We ensure safe pregnancy, childbirth, and postnatal care through healthcare
+          access, education, community support, and technology-driven solutions.
+        </p>
+      </div>
 
-      <div className="about-block">
-        <img src="/prenatal.jpg" alt="Prenatal Support" className="section-image" />
-        <h2>Prenatal (Antenatal) Support</h2>
+      {/* Vision & Mission */}
+      <div style={sectionStyle}>
+        <h2 style={titleStyle}>Vision</h2>
+        <p>
+          A world where no woman dies from preventable pregnancy-related causes and
+          every child is given a healthy start to life.
+        </p>
+
+        <h2 style={titleStyle}>Mission</h2>
+        <p>
+          To improve maternal and newborn health by providing accessible, innovative,
+          and community-driven solutions for safe pregnancy, childbirth, and postnatal care.
+        </p>
+      </div>
+
+      {/* Core Values */}
+      <div style={sectionStyle}>
+        <h2 style={titleStyle}>Core Values</h2>
         <ul>
-          <li>Support for first and expectant women</li>
-          <li>Birth preparation and complication readiness sessions</li>
-          <li>
-            We provide technical and mental support before and during pregnancy to help you prepare for a happy, healthy delivery. Especially for first-time mothers, we offer reassurance and guidance to manage anxiety.
-          </li>
+          <li>Equity – Equal access to maternal healthcare for all women</li>
+          <li>Compassion – Care delivered with empathy and respect</li>
+          <li>Integrity – Transparency and accountability</li>
+          <li>Innovation – Technology-driven health solutions</li>
+          <li>Collaboration – Working with partners for impact</li>
         </ul>
       </div>
 
-      <div className="about-block">
-        <img src="/delivery-kits.jpg" alt="Safe Delivery Kits" className="section-image" />
-        <h3>Safe Delivery Kits</h3>
-        <p>
-          We provide a complete, safe, and quality delivery kit as part of our Birth Preparedness Package.
-        </p>
+      {/* Objectives */}
+      <div style={sectionStyle}>
+        <h2 style={titleStyle}>Objectives</h2>
+        <ul>
+          <li>Improve access to antenatal, delivery, and postnatal care</li>
+          <li>Promote maternal health education and awareness</li>
+          <li>Strengthen healthcare worker capacity</li>
+          <li>Reduce barriers to healthcare access</li>
+          <li>Promote maternal mental health</li>
+          <li>Advocate for maternal health policies</li>
+          <li>Strengthen community engagement</li>
+          <li>Support research and digital innovation</li>
+          <li>Provide outreach services</li>
+          <li>Empower women economically</li>
+        </ul>
       </div>
 
-      <div className="about-block">
-        <img src="/insurance.jpg" alt="Health Insurance Guide" className="section-image" />
-        <h3>Health Insurance Guide</h3>
-        <p>
-          We guide you on securing appropriate health insurance coverage for yourself and your child.
-        </p>
+      {/* Programs */}
+      <div style={sectionStyle}>
+        <h2 style={titleStyle}>Key Program Areas</h2>
+        <ul>
+          <li>Maternal and newborn health services</li>
+          <li>Community health education</li>
+          <li>SafeMum digital health app</li>
+          <li>Healthcare worker training</li>
+          <li>Advocacy and partnerships</li>
+        </ul>
       </div>
 
-      <div className="about-block">
-        <img src="/calm-corner.jpg" alt="Calm Corner" className="section-image" />
-        <h2>Calm Corner</h2>
+      {/* Beneficiaries */}
+      <div style={sectionStyle}>
+        <h2 style={titleStyle}>Target Beneficiaries</h2>
+        <ul>
+          <li>Pregnant women</li>
+          <li>Nursing mothers</li>
+          <li>Adolescent girls</li>
+          <li>Rural and underserved communities</li>
+          <li>Healthcare providers</li>
+        </ul>
+      </div>
+
+      {/* Strategy */}
+      <div style={sectionStyle}>
+        <h2 style={titleStyle}>Implementation Strategy</h2>
+        <ul>
+          <li>Community-based interventions</li>
+          <li>Healthcare facility partnerships</li>
+          <li>Technology-driven outreach</li>
+          <li>Data-driven decision making</li>
+        </ul>
+      </div>
+
+      {/* M&E */}
+      <div style={sectionStyle}>
+        <h2 style={titleStyle}>Monitoring & Evaluation</h2>
         <p>
-          Your feelings and pains are valid—no judgment here. This space is for women and men at risk of depression, to help them regain strength and self-confidence.
+          We track program performance, measure impact, and ensure accountability
+          using key indicators such as:
         </p>
         <ul>
-        <li>
-         Stress management & emotional resilience training
-      <ul>
-        <li>Learn how to manage daily stress and emotional overload</li>
-        <li>Enjoy guided relaxation, deep breathing, and light movement</li>
-        <li>Connect with other women who understand your journey</li>
-        <li>Receive a wellness toolkit you can use at home</li>
-      <li>Walk away feeling lighter, calmer, and more in control</li>
-    </ul>
-   </li>
-    <li>Group stress relief sessions (breathing, mindfulness, aerobics, games)</li>
-  < li>Private counselling and therapy sessions</li>
-  < li>Screening and support for prenatal & postpartum depression and anxiety</li>
-  < li>Creating a private, supportive community of calm and powerful people</li>
-</ul>
+          <li>Antenatal care attendance rates</li>
+          <li>Skilled birth attendance</li>
+          <li>Teenage pregnancy rates</li>
+          <li>Maternal and neonatal mortality rates</li>
+        </ul>
+      </div>
+
+      {/* Contact */}
+      <div style={sectionStyle}>
+        <h2 style={titleStyle}>Contact Information</h2>
+        <p><strong>Safe Mum Initiative</strong></p>
+        <p>Name: Jane Chinwe Williams</p>
+        <p>Location: Abuja, Nigeria</p>
+        <p>Email: ofmamacare@gmail.com</p>
+      </div>
+
+      {/* Conclusion */}
+      <div style={sectionStyle}>
+        <h2 style={titleStyle}>Conclusion</h2>
+        <p>
+          Safe Mum Initiative is committed to transforming maternal and newborn
+          health outcomes through innovative, inclusive, and sustainable approaches.
+          We aim to save lives and empower communities.
+        </p>
+      </div>
     </div>
-
-      <div className="about-block">
-        <img src="/childhood.jpg" alt="Child Care & Immunization" className="section-image" />
-        <h2>Early Childhood Care & Immunization</h2>
-        <ul>
-          <li>Advice on hygiene and safety of young children</li>
-          <li>Education on immunizations, common illnesses, and child safety</li>
-        </ul>
-      </div>
-
-      <div className="about-block">
-        <img src="/community.jpg" alt="Community Support" className="section-image" />
-        <h2>Community & Peer Support</h2>
-        <p>
-          We organize support groups for mothers to share experiences and gain mutual encouragement through:
-        </p>
-        <ul>
-          <li>Workshops</li>
-          <li>Webinars</li>
-          <li>Events focused on maternal and child health</li>
-        </ul>
-      </div>
-    </section>
   );
-}
+};
+
+export default About;

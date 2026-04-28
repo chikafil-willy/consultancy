@@ -21,8 +21,16 @@ export default function Header() {
       <nav className={`nav-links ${menuOpen ? "show" : ""}`}>
         <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
         <Link to="/about" onClick={() => setMenuOpen(false)}>About Us</Link>
-        <Link to="/request" onClick={() => setMenuOpen(false)}>Request Services</Link>
-        <Link to="/news-event" onClick={() => setMenuOpen(false)}>News/Events</Link>
+
+        {/* ✅ ADDED PROGRAMMES */}
+        <Link to="/programmes" onClick={() => setMenuOpen(false)}>
+          Programmes
+        </Link>
+
+        
+        <Link to="/news-event" onClick={() => setMenuOpen(false)}>
+          News/Events
+        </Link>
       </nav>
     </header>
   );

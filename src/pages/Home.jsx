@@ -12,22 +12,24 @@ const Home = () => {
   const images = [img1, img2, img3];
   const heroTexts = [
     {
-      title: "Welcome to Olea Fresh MamaCare",
-      subtitle: "Supporting mothers and children with love and expertise."
+      title: "Welcome to Safe Mum Initiative",
+      subtitle:
+        "Improving maternal and newborn health through care, education, and community support.",
     },
     {
-      title: "Empowering Mothers",
-      subtitle: "We provide guidance for a healthy pregnancy and early childhood care."
+      title: "Empowering Mothers & Families",
+      subtitle:
+        "We guide women through pregnancy, childbirth, and early childhood development.",
     },
     {
-      title: "Your Trusted Partner",
-      subtitle: "Building stronger families through education, wellness, and care."
-    }
+      title: "A Trusted Maternal Health Partner",
+      subtitle:
+        "Building healthier communities through innovation, training, and outreach.",
+    },
   ];
 
   const [current, setCurrent] = useState(0);
 
-  // Newsletter States
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [message, setMessage] = useState("");
 
@@ -38,9 +40,9 @@ const Home = () => {
       .insert([{ email: newsletterEmail }]);
 
     if (error) {
-      setMessage("This email already subscribed or invalid.");
+      setMessage("This email is already subscribed or invalid.");
     } else {
-      setMessage("Thank you for subscribing!");
+      setMessage("Thank you for subscribing to Safe Mum Initiative!");
       setNewsletterEmail("");
     }
   };
@@ -55,12 +57,11 @@ const Home = () => {
   return (
     <main className="home">
 
-      {/* HERO SLIDER SECTION */}
+      {/* HERO */}
       <section className="hero-slider" style={{ position: "relative", overflow: "hidden" }}>
         {images.map((img, index) => (
           <div
             key={index}
-            className={`hero-slide ${index === current ? "active" : ""}`}
             style={{
               width: "100%",
               height: "80vh",
@@ -68,14 +69,11 @@ const Home = () => {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-
-              /* ⭐ FULL IMAGE (NO CROPPING) */
               backgroundImage: `url(${img})`,
               backgroundRepeat: "no-repeat",
-              backgroundSize: "contain",   // FULL IMAGE
+              backgroundSize: "contain",
               backgroundPosition: "center",
-              backgroundColor: "#000",     // Prevent white edges
-
+              backgroundColor: "#000",
               position: index === current ? "relative" : "absolute",
               top: 0,
               left: 0,
@@ -85,109 +83,74 @@ const Home = () => {
           >
             {index === current && (
               <div
-                className="hero-text"
                 style={{
                   position: "absolute",
                   bottom: "60%",
                   left: "50%",
                   transform: "translateX(-50%)",
                   textAlign: "center",
-                  padding: "0 1rem",
                   color: "#fff",
-                  animation: "slideDown 1s ease forwards",
                   width: "100%",
                   maxWidth: "600px",
                 }}
               >
-                <h1 style={{ fontSize: "2.2rem", marginBottom: "1rem" }}>
-                  {heroTexts[index].title}
-                </h1>
-                <p
-                  style={{
-                    background: "rgba(0,0,0,0.6)",
-                    padding: "0.6rem 1rem",
-                    borderRadius: "8px",
-                    fontSize: "1rem",
-                  }}
-                >
+                <h1 style={{ fontSize: "2.2rem" }}>{heroTexts[index].title}</h1>
+                <p style={{ background: "rgba(0,0,0,0.6)", padding: "10px", borderRadius: "8px" }}>
                   {heroTexts[index].subtitle}
                 </p>
               </div>
             )}
           </div>
         ))}
-
-        {/* KEYFRAMES + MOBILE RESPONSIVENESS */}
-        <style>
-          {`
-            @keyframes slideDown {
-              from { opacity: 0; transform: translate(-50%, 20px); }
-              to { opacity: 1; transform: translate(-50%, 0); }
-            }
-
-            @media (max-width: 768px) {
-              .hero-slider .hero-slide {
-                height: 70vh !important;
-                background-size: contain !important; /* STILL FULL IMAGE */
-                background-position: center !important;
-              }
-
-              .hero-text h1 {
-                font-size: 1.5rem !important;
-              }
-
-              .hero-text p {
-                font-size: 0.9rem !important;
-              }
-            }
-          `}
-        </style>
       </section>
 
-      {/* ABOUT SECTION */}
+      {/* ABOUT */}
       <section className="about">
-        <h2>Why Olea Fresh MamaCare</h2>
+        <h2>Why Safe Mum Initiative</h2>
         <p>
-          <strong>Olea Fresh MamaCare Ltd</strong> is a trusted mother and child care consultancy firm
-          dedicated to the physical, emotional, and educational well-being of mothers and children.
+          Safe Mum Initiative is a maternal and newborn health organization dedicated to improving
+          the wellbeing of mothers and children through education, healthcare access, and community support.
         </p>
         <p>
-          We support mothers through pregnancy, childbirth, postpartum recovery, and early childhood development.
+          We support women through pregnancy, childbirth, postpartum recovery, and early childhood development.
         </p>
         <p>
-          Our mission is to build healthier families through education and wellness programs.
+          Our mission is to ensure every mother experiences a safe pregnancy and every child has a healthy start to life.
         </p>
       </section>
 
-      {/* REQUEST SECTION */}
-      <section className="request-section">
+      {/* PROGRAMMES SECTION */}
+      <section className="programmes-section">
         <div className="hero-flex">
-          <img src={requestImg} alt="Request Consultation" className="hero-side-img" />
           <div className="hero-text">
-            <h2>Need Professional Mother & Child Care Support?</h2>
+            <h2>Explore Our Safe Mum Programmes</h2>
             <p>
-              Book a personalized consultation session with our health experts.
+              We deliver structured maternal health programmes designed to support women before, during, and after pregnancy.
             </p>
-            <Link to="/request" className="btn">Request</Link>
+            <p>
+              From community education to emergency preparedness and mental health support, our initiatives build stronger families.
+            </p>
+            <p>
+              Discover our outreach, training, and digital health solutions.
+            </p>
+            <Link to="/programmes" className="btn">View Programmes</Link>
           </div>
         </div>
       </section>
 
-      {/* NEWS SECTION */}
+      {/* NEWS */}
       <section className="news-section">
         <div className="hero-flex reverse">
-          <img src={newsImg} alt="News and Events" className="hero-side-img" />
+          <img src={newsImg} alt="News" className="hero-side-img" />
           <div className="hero-text">
-            <h2>Stay Updated with Our News & Events</h2>
-            <p>
-              Explore workshops, health talks, and community programs.
-            </p>
+            <h2>Safe Mum News & Events</h2>
+            <p>Stay updated on outreach programs and community health activities.</p>
             <Link to="/news-event" className="btn">News & Events</Link>
           </div>
         </div>
       </section>
 
-      {/* NEWSLETTER SECTION */}
+      {/* NEWSLETTER */}
       <section
         style={{
           backgroundImage: `url(${newsletterBg})`,
@@ -200,57 +163,38 @@ const Home = () => {
           borderRadius: "10px",
         }}
       >
-        <h2 style={{ fontSize: "1.8rem", marginBottom: "1rem" }}>
-          Stay Updated With Our Newsletter
-        </h2>
-
-        <p style={{ maxWidth: "500px", margin: "0 auto 1.5rem auto" }}>
-          Get mother & child care updates, wellness guides, and event alerts.
-        </p>
+        <h2>Stay Connected with Safe Mum Initiative</h2>
+        <p>Receive updates and maternal health tips directly in your inbox.</p>
 
         <form
           onSubmit={handleSubscribe}
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            gap: "0.5rem",
-            maxWidth: "500px",
-            margin: "0 auto",
-          }}
+          style={{ display: "flex", justifyContent: "center", gap: "10px", maxWidth: "500px", margin: "auto" }}
         >
           <input
             type="email"
-            placeholder="Enter your email"
             value={newsletterEmail}
             onChange={(e) => setNewsletterEmail(e.target.value)}
-            style={{
-              padding: "0.8rem",
-              borderRadius: "6px",
-              border: "none",
-              flex: 1,
-            }}
+            placeholder="Enter email"
+            style={{ padding: "10px", borderRadius: "6px", border: "none", flex: 1 }}
             required
           />
-          <button
-            style={{
-              padding: "0.8rem 1.2rem",
-              borderRadius: "6px",
-              border: "none",
-              background: "#f8b400",
-              color: "#fff",
-              fontWeight: "bold",
-              cursor: "pointer",
-            }}
-          >
+          <button style={{ background: "#f8b400", border: "none", padding: "10px 15px", borderRadius: "6px" }}>
             Subscribe
           </button>
         </form>
 
-        {message && (
-          <p style={{ marginTop: "1rem", color: "#fff", fontWeight: "bold" }}>
-            {message}
-          </p>
-        )}
+        {message && <p>{message}</p>}
+      </section>
+
+      {/* STATS */}
+      <section style={{ marginTop: "3rem", padding: "3rem 1rem", background: "#0a7cff", color: "#fff", textAlign: "center", borderRadius: "10px" }}>
+        <h2>Our Impact Since 2023</h2>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))", gap: "20px" }}>
+          <div><h1>8000+</h1><p>People Reached</p></div>
+          <div><h1>71+</h1><p>Digital Campaigns</p></div>
+          <div><h1>45</h1><p>BPCR Trained Women</p></div>
+          <div><h1>Many</h1><p>Mental Health Sessions</p></div>
+        </div>
       </section>
 
     </main>
