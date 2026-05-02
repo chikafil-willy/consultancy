@@ -6,6 +6,7 @@ import img3 from "../assets/mama3.jpg";
 import requestImg from "../assets/request.jpg";
 import newsImg from "../assets/news.jpg";
 import newsletterBg from "../assets/newsletter.jpg";
+import programmesImg from "../assets/programmes.jpg";
 import { supabase } from "../supabaseClient";
 
 const Home = () => {
@@ -122,6 +123,7 @@ const Home = () => {
       {/* PROGRAMMES SECTION */}
       <section className="programmes-section">
         <div className="hero-flex">
+           <img src={programmesImg} alt="Programmes" className="hero-side-img" />
           <div className="hero-text">
             <h2>Explore Our Safe Mum Programmes</h2>
             <p>
@@ -192,8 +194,8 @@ const Home = () => {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))", gap: "20px" }}>
           <div><h1>8000+</h1><p>People Reached</p></div>
           <div><h1>71+</h1><p>Digital Campaigns</p></div>
-          <div><h1>45</h1><p>BPCR Trained Women</p></div>
-          <div><h1>Many</h1><p>Mental Health Sessions</p></div>
+          <div><h1>72+</h1><p>BPCR Trained Women</p></div>
+          <div><h1>10+</h1><p>Mental Health Sessions</p></div>
         </div>
       </section>
 

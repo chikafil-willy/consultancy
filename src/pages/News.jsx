@@ -35,7 +35,7 @@ export default function News() {
 
       {/* Section Title */}
       <h2 style={{ textAlign: "center", fontSize: "2rem", marginBottom: "10px", color: "#fff" }}>
-        Welcome to Olea Fresh MamaCare News & Events
+        Welcome to Safe mum Initiative News & Events
       </h2>
 
       <p style={{
@@ -46,7 +46,7 @@ export default function News() {
         color: "#fff"
       }}>
         Stay informed with our latest updates, community activities, health programs,
-        and all upcoming MamaCare events.
+        and all upcoming safe mum initiative events.
       </p>
 
       {/* LATEST NEWS */}
