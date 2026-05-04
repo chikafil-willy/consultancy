@@ -566,3 +566,67 @@ select {
     transform: translateX(-100%);
   }
 }
+@keyframes slideUp {
+  from {
+    transform: translate(-50%, 40px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0px);
+    opacity: 1;
+  }
+}
+.hero-text-overlay {
+  position: absolute;
+  bottom: 60%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: #fff;
+  max-width: 600px;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+}
+
+.hero-subtitle {
+  background: rgba(0,0,0,0.6);
+  padding: 10px;
+  border-radius: 8px;
+  line-height: 1.6;
+}
+
+/* animation */
+.slide-up {
+  animation: slideUp 1s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translate(-50%, 40px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0px);
+    opacity: 1;
+  }
+}
+@media (max-width: 768px) {
+  .hero-text-overlay {
+    left: 8%;
+    transform: translateX(0);  /* keep consistent system */
+    text-align: left;
+    max-width: 90%;
+    bottom: 63%; /* moves into black space nicely */
+  }
+
+  .hero-title {
+    font-size: 1.6rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+}
