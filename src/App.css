@@ -547,7 +547,7 @@ select {
 }
 .scroll-text {
   font-size: 1.2rem;   /* 🔥 bigger text */
-  padding: 10px 0;     /* 🔥 more height */
+  padding: 8px 0;     /* 🔥 more height */
   display: inline-block;
   white-space: nowrap;
   padding-left: 100%;
