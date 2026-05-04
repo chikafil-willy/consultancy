@@ -545,3 +545,24 @@ select {
   padding-top: 15px;
   font-size: 14px;
 }
+.scroll-text {
+  font-size: 1.2rem;   /* 🔥 bigger text */
+  padding: 10px 0;     /* 🔥 more height */
+  display: inline-block;
+  white-space: nowrap;
+  padding-left: 100%;
+  animation: scroll-left 15s linear infinite;
+  font-weight: bold;
+}
+.scroll-container {
+  width: 100%;
+  overflow: hidden;
+}
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}

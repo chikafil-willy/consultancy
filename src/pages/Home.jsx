@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import img1 from "../assets/mama1.jpg";
 import img2 from "../assets/mama2.jpg";
 import img3 from "../assets/mama3.jpg";
-import requestImg from "../assets/request.jpg";
 import newsImg from "../assets/news.jpg";
 import newsletterBg from "../assets/newsletter.jpg";
 import programmesImg from "../assets/programmes.jpg";
@@ -11,6 +10,7 @@ import { supabase } from "../supabaseClient";
 
 const Home = () => {
   const images = [img1, img2, img3];
+
   const heroTexts = [
     {
       title: "Welcome to Safe Mum Initiative",
@@ -30,12 +30,14 @@ const Home = () => {
   ];
 
   const [current, setCurrent] = useState(0);
-
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [externalNews, setExternalNews] = useState([]);
 
+  // Newsletter
   const handleSubscribe = async (e) => {
     e.preventDefault();
+
     const { error } = await supabase
       .from("newsletter_subscribers")
       .insert([{ email: newsletterEmail }]);
@@ -48,6 +50,7 @@ const Home = () => {
     }
   };
 
+  // Hero slider
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % images.length);
@@ -55,8 +58,44 @@ const Home = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Fetch Google News
+  useEffect(() => {
+    const fetchExternalNews = async () => {
+      try {
+        const url =
+          "https://api.rss2json.com/v1/api.json?rss_url=" +
+          encodeURIComponent(
+            "https://news.google.com/rss/search?q=maternal+health"
+          );
+
+        const res = await fetch(url);
+        const data = await res.json();
+
+        if (data.status === "ok") {
+          setExternalNews(data.items.slice(0, 4));
+        } else {
+          setExternalNews([]);
+        }
+      } catch (err) {
+        console.error(err);
+        setExternalNews([]);
+      }
+    };
+
+    fetchExternalNews();
+  }, []);
+
   return (
     <main className="home">
+
+      {/* 🔥 BIGGER SCROLLING BAR */}
+      <section style={{ background: "#f8b400", overflow: "hidden" }}>
+        <div className="scroll-container">
+          <div className="scroll-text">
+            SafeMum Initiative — Empowering mothers • Supporting families • Promoting safe pregnancy • Reducing maternal risks • Building healthier communities across Nigeria
+          </div>
+        </div>
+      </section>
 
       {/* HERO */}
       <section className="hero-slider" style={{ position: "relative", overflow: "hidden" }}>
@@ -91,12 +130,15 @@ const Home = () => {
                   transform: "translateX(-50%)",
                   textAlign: "center",
                   color: "#fff",
-                  width: "100%",
                   maxWidth: "600px",
                 }}
               >
-                <h1 style={{ fontSize: "2.2rem" }}>{heroTexts[index].title}</h1>
-                <p style={{ background: "rgba(0,0,0,0.6)", padding: "10px", borderRadius: "8px" }}>
+                <h1>{heroTexts[index].title}</h1>
+                <p style={{
+                  background: "rgba(0,0,0,0.6)",
+                  padding: "10px",
+                  borderRadius: "8px"
+                }}>
                   {heroTexts[index].subtitle}
                 </p>
               </div>
@@ -109,33 +151,40 @@ const Home = () => {
       <section className="about">
         <h2>Why Safe Mum Initiative</h2>
         <p>
-          Safe Mum Initiative is a maternal and newborn health organization dedicated to improving
-          the wellbeing of mothers and children through education, healthcare access, and community support.
-        </p>
-        <p>
-          We support women through pregnancy, childbirth, postpartum recovery, and early childhood development.
-        </p>
-        <p>
-          Our mission is to ensure every mother experiences a safe pregnancy and every child has a healthy start to life.
+          Safe Mum Initiative is dedicated to improving maternal and newborn health
+          through education, healthcare access, and community engagement.
         </p>
       </section>
 
-      {/* PROGRAMMES SECTION */}
+      {/* PROGRAMMES */}
       <section className="programmes-section">
         <div className="hero-flex">
-           <img src={programmesImg} alt="Programmes" className="hero-side-img" />
+          <img src={programmesImg} alt="Programmes" className="hero-side-img" />
           <div className="hero-text">
-            <h2>Explore Our Safe Mum Programmes</h2>
+            <h2>Our Core Programmes</h2>
+
             <p>
-              We deliver structured maternal health programmes designed to support women before, during, and after pregnancy.
+              At SafeMum Initiative, our programmes are designed to provide
+              practical, life-saving support for women before, during, and after pregnancy.
             </p>
+
             <p>
-              From community education to emergency preparedness and mental health support, our initiatives build stronger families.
+              We focus on <strong>Birth Preparedness (BPCR)</strong>, antenatal education,
+              maternal mental health, and community-based awareness campaigns.
             </p>
+
             <p>
-              Discover our outreach, training, and digital health solutions.
+              Our outreach includes training sessions, digital education,
+              and direct support to ensure women understand danger signs,
+              access healthcare early, and prepare for safe delivery.
             </p>
-            <Link to="/programmes" className="btn">View Programmes</Link>
+
+            <p>
+              Through these programmes, we are building informed families,
+              strengthening healthcare systems, and reducing preventable maternal risks.
+            </p>
+
+            <Link to="/programmes" className="btn">Explore All Programmes</Link>
           </div>
         </div>
       </section>
@@ -145,56 +194,110 @@ const Home = () => {
         <div className="hero-flex reverse">
           <img src={newsImg} alt="News" className="hero-side-img" />
           <div className="hero-text">
-            <h2>Safe Mum News & Events</h2>
-            <p>Stay updated on outreach programs and community health activities.</p>
-            <Link to="/news-event" className="btn">News & Events</Link>
+            <h2>News & Community Events</h2>
+
+            <p>
+              Stay connected with SafeMum Initiative through our latest updates,
+              outreach activities, and maternal health campaigns.
+            </p>
+
+            <p>
+              We regularly engage with communities through awareness programs,
+              training workshops, and health education sessions that impact
+              mothers and families directly.
+            </p>
+
+            <p>
+              From local outreach in rural communities to digital campaigns
+              reaching thousands online, our events showcase real impact.
+            </p>
+
+            <p>
+              Follow our journey, see our impact, and stay informed on upcoming activities.
+            </p>
+
+            <Link to="/news-event" className="btn">View All News & Events</Link>
           </div>
         </div>
       </section>
 
-      {/* NEWSLETTER */}
-      <section
-        style={{
-          backgroundImage: `url(${newsletterBg})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          padding: "3rem 1rem",
-          textAlign: "center",
-          color: "#fff",
-          marginTop: "3rem",
-          borderRadius: "10px",
-        }}
-      >
-        <h2>Stay Connected with Safe Mum Initiative</h2>
-        <p>Receive updates and maternal health tips directly in your inbox.</p>
+      {/* 🌍 GLOBAL NEWS */}
+      <section style={{ marginTop: "3rem" }}>
+        <h2 style={{ textAlign: "center" }}>Global Maternal Health News</h2>
 
-        <form
-          onSubmit={handleSubscribe}
-          style={{ display: "flex", justifyContent: "center", gap: "10px", maxWidth: "500px", margin: "auto" }}
-        >
+        {externalNews.length === 0 ? (
+          <p style={{ textAlign: "center" }}>Loading news...</p>
+        ) : (
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(250px,1fr))",
+            gap: "20px",
+            marginTop: "20px"
+          }}>
+            {externalNews.map((item, index) => (
+              <div key={index} style={{
+                background: "#111",
+                color: "#fff",
+                padding: "15px",
+                borderRadius: "8px"
+              }}>
+                <h4>{item.title}</h4>
+                <p style={{ fontSize: "14px", opacity: 0.7 }}>
+                  {item.pubDate?.slice(0, 10)}
+                </p>
+                <a href={item.link} target="_blank" rel="noreferrer" style={{ color: "#f8b400" }}>
+                  Read More →
+                </a>
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
+
+      {/* NEWSLETTER */}
+      <section style={{
+        backgroundImage: `url(${newsletterBg})`,
+        padding: "3rem 1rem",
+        textAlign: "center",
+        color: "#fff",
+        marginTop: "3rem"
+      }}>
+        <h2>Stay Connected</h2>
+
+        <form onSubmit={handleSubscribe} style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "10px"
+        }}>
           <input
             type="email"
             value={newsletterEmail}
             onChange={(e) => setNewsletterEmail(e.target.value)}
             placeholder="Enter email"
-            style={{ padding: "10px", borderRadius: "6px", border: "none", flex: 1 }}
             required
           />
-          <button style={{ background: "#f8b400", border: "none", padding: "10px 15px", borderRadius: "6px" }}>
-            Subscribe
-          </button>
+          <button>Subscribe</button>
         </form>
 
         {message && <p>{message}</p>}
       </section>
 
       {/* STATS */}
-      <section style={{ marginTop: "3rem", padding: "3rem 1rem", background: "#0a7cff", color: "#fff", textAlign: "center", borderRadius: "10px" }}>
-        <h2>Our Impact Since 2023</h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))", gap: "20px" }}>
+      <section style={{
+        marginTop: "3rem",
+        background: "#0a7cff",
+        color: "#fff",
+        padding: "2rem",
+        textAlign: "center"
+      }}>
+        <h2>Our Impact</h2>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))"
+        }}>
           <div><h1>8000+</h1><p>People Reached</p></div>
-          <div><h1>71+</h1><p>Digital Campaigns</p></div>
-          <div><h1>72+</h1><p>BPCR Trained Women</p></div>
+          <div><h1>71+</h1><p>Campaigns</p></div>
+          <div><h1>72+</h1><p>Women Trained</p></div>
           <div><h1>10+</h1><p>Mental Health Sessions</p></div>
         </div>
       </section>
