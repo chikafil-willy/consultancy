@@ -104,7 +104,10 @@ const Home = () => {
       </section>
 
       {/* HERO */}
-      <section className="hero-slider" style={{ position: "relative", overflow: "hidden" }}>
+      <section
+        className="hero-slider"
+        style={{ position: "relative", overflow: "hidden" }}
+      >
         {images.map((img, index) => (
           <div
             key={index}
@@ -147,37 +150,45 @@ const Home = () => {
       {/* ABOUT */}
       <section className="about">
         <h2>Why Safe Mum Initiative</h2>
+
         <p>
           Safe Mum Initiative is dedicated to improving maternal and newborn health
           through education, healthcare access, and community engagement.
         </p>
       </section>
 
-      {/* PROGRAMMES (RESTORED WRITEUPS) */}
+      {/* PROGRAMMES */}
       <section className="programmes-section">
         <div className="hero-flex">
-          <img src={programmesImg} alt="Programmes" className="hero-side-img" />
+          <img
+            src={programmesImg}
+            alt="Programmes"
+            className="hero-side-img"
+          />
+
           <div className="hero-text">
             <h2>Our Core Programmes</h2>
 
             <p>
-              We provide life-saving maternal health support before, during, and after pregnancy
-              through structured community-based programmes.
+              We provide life-saving maternal health support before, during,
+              and after pregnancy through structured community-based programmes.
             </p>
 
             <p>
-              Our focus includes Birth Preparedness and Complication Readiness (BPCR),
-              antenatal education, safe delivery awareness, and postnatal care support for mothers.
+              Our focus includes Birth Preparedness and Complication Readiness
+              (BPCR), antenatal education, safe delivery awareness, and
+              postnatal care support for mothers.
             </p>
 
             <p>
-              We also run maternal mental health support programmes to help women cope with
-              emotional and psychological challenges during and after pregnancy.
+              We also run maternal mental health support programmes to help
+              women cope with emotional and psychological challenges during
+              and after pregnancy.
             </p>
 
             <p>
-              Through outreach and training, we empower families with knowledge that helps reduce
-              preventable maternal and newborn deaths.
+              Through outreach and training, we empower families with knowledge
+              that helps reduce preventable maternal and newborn deaths.
             </p>
 
             <Link to="/programmes" className="btn">
@@ -187,31 +198,37 @@ const Home = () => {
         </div>
       </section>
 
-      {/* NEWS (RESTORED WRITEUPS) */}
+      {/* NEWS */}
       <section className="news-section">
         <div className="hero-flex reverse">
-          <img src={newsImg} alt="News" className="hero-side-img" />
+          <img
+            src={newsImg}
+            alt="News"
+            className="hero-side-img"
+          />
+
           <div className="hero-text">
             <h2>News & Community Events</h2>
 
             <p>
-              Stay connected with Safe Mum Initiative through our latest outreach activities,
-              maternal health campaigns, and community engagement programs.
+              Stay connected with Safe Mum Initiative through our latest outreach
+              activities, maternal health campaigns, and community engagement programs.
             </p>
 
             <p>
-              We organize health education sessions, awareness drives, and training workshops
-              aimed at improving maternal and newborn health outcomes.
+              We organize health education sessions, awareness drives, and
+              training workshops aimed at improving maternal and newborn
+              health outcomes.
             </p>
 
             <p>
-              Our events reach both rural and urban communities, ensuring women have access
-              to reliable health information and support systems.
+              Our events reach both rural and urban communities, ensuring women
+              have access to reliable health information and support systems.
             </p>
 
             <p>
-              Follow our updates to see how we are impacting lives and building healthier communities
-              across Nigeria.
+              Follow our updates to see how we are impacting lives and building
+              healthier communities across Nigeria.
             </p>
 
             <Link to="/news-event" className="btn">
@@ -223,10 +240,14 @@ const Home = () => {
 
       {/* GLOBAL NEWS */}
       <section style={{ marginTop: "3rem" }}>
-        <h2 style={{ textAlign: "center" }}>Global Maternal Health News</h2>
+        <h2 style={{ textAlign: "center" }}>
+          Global Maternal Health News
+        </h2>
 
         {externalNews.length === 0 ? (
-          <p style={{ textAlign: "center" }}>Loading news...</p>
+          <p style={{ textAlign: "center" }}>
+            Loading news...
+          </p>
         ) : (
           <div
             style={{
@@ -247,9 +268,11 @@ const Home = () => {
                 }}
               >
                 <h4>{item.title}</h4>
+
                 <p style={{ opacity: 0.7 }}>
                   {item.pubDate?.slice(0, 10)}
                 </p>
+
                 <a
                   href={item.link}
                   target="_blank"
@@ -291,10 +314,53 @@ const Home = () => {
             placeholder="Enter email"
             required
           />
+
           <button>Subscribe</button>
         </form>
 
         {message && <p>{message}</p>}
+      </section>
+
+      {/* STATS */}
+      <section
+        style={{
+          marginTop: "3rem",
+          background: "#0a7cff",
+          color: "#fff",
+          padding: "2rem",
+          textAlign: "center",
+        }}
+      >
+        <h2>Our Impact</h2>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))",
+            gap: "20px",
+            marginTop: "20px",
+          }}
+        >
+          <div>
+            <h1>8000+</h1>
+            <p>People Reached</p>
+          </div>
+
+          <div>
+            <h1>71+</h1>
+            <p>Campaigns</p>
+          </div>
+
+          <div>
+            <h1>72+</h1>
+            <p>Women Trained</p>
+          </div>
+
+          <div>
+            <h1>10+</h1>
+            <p>Mental Health Sessions</p>
+          </div>
+        </div>
       </section>
 
     </main>
